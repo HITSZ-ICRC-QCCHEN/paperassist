@@ -69,4 +69,17 @@ class Upload extends CI_Controller {
             return redirect('upload', $data);
         }
     }
+
+    public function send_email()
+    {
+        $this->load->library('email');
+
+        $this->email->from('mumuli21@163.com', '哥只是个传说');
+        $this->email->to('');
+
+        $this->email->subject('Email Test');
+        $this->email->message('This is a test text.');
+
+        $this->email->send();
+    }
 }
