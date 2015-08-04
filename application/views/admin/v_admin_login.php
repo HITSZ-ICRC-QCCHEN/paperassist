@@ -13,8 +13,9 @@
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style type="text/css">
-    .loginBox{width:420px;padding:0 20px;border:1px solid #fff; color:#000; margin-top:40px; border-radius:8px;background: white;box-shadow:0 0 15px #222; background: -moz-linear-gradient(top, #fff, #efefef 8%);background: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6), to(#f4f4f4));font:11px/1.5em 'Microsoft YaHei' ;position: absolute;left:50%;top:50%;margin-left:-210px;margin-top:-115px;}
+    .loginBox{width:380px;padding:0 20px;border:1px solid #fff; color:#000; margin-top:40px; border-radius:8px;background: white;box-shadow:0 0 15px #222;font:11px/1.5em 'Microsoft YaHei' ;position: absolute;left:50%;top:50%;margin-left:-210px;margin-top:-115px;}
     .loginBox h2{font-size:20px;font-weight:normal;}
+    .btn-login, .btn-reset{width: 120px; margin-right: 20px; margin-bottom: 20px;}
     </style>
   </head>
   <body>
@@ -31,17 +32,23 @@
             <input type="password" class="form-control" id="password" name="password" placeholder="密码">
           </div>
           <div class="form-group">
-            <input type="radio" value="内容审核员" name="rolename" checked="checked">内容审核员
-            <input type="radio" value="管理员" name="rolename">管理员
+
+            <input type="radio" name="rolename" value="内容审核员" id="auditor" checked="checked">
+            <label for="auditor">内容审核员</label>
+            <input type="radio" name="rolename" value="管理员" id="admin">
+            <label for="admin">管理员</label>
           </div>
 <!--          <div class="checkbox">-->
 <!--            <label>-->
 <!--              <input type="checkbox" name="rememberme"> 下次自动登录-->
 <!--            </label>-->
 <!--          </div>-->
-          <button type="submit" class="btn btn-primary">登录</button>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-login">登录</button>
+            <button class="btn btn-primary btn-reset">重置</button>
+          </div>
         </form>
-        <p class="alert alert-danger"><?php if(isset($login_error)) echo $login_error; ?></p>
+        <?php if(isset($login_error)) echo '<p class="alert alert-danger">'.$login_error.'</p>'; ?>
       </div>
     </div>
   </body>

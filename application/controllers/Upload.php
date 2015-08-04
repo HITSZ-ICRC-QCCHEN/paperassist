@@ -15,7 +15,7 @@ class Upload extends CI_Controller {
     {
         $data['title'] = '提交句型';
 
-        $this->load->view('template/header.php', $data);
+//        $this->load->view('template/header.php', $data);
         $this->load->view('upload/v_upload', $data);
 //        $this->load->view('template/footer.php', $data);
     }
@@ -35,7 +35,7 @@ class Upload extends CI_Controller {
                 $data['title'] = '提交句型';
                 $data['error'] = $this->upload->display_errors();
 
-                $this->load->view('template/header.php', $data);
+//                $this->load->view('template/header.php', $data);
                 $this->load->view('upload/v_upload', $data);
             }
             else {
@@ -43,7 +43,7 @@ class Upload extends CI_Controller {
 //            var_dump($data);
                 $data['title'] = '提交句型';
 
-                $this->load->view('template/header.php', $data);
+//                $this->load->view('template/header.php', $data);
                 $this->load->view('upload/v_upload', $data);
             }
         }
