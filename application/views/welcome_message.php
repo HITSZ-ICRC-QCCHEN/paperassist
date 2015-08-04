@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </script>
 <body>
 <h1 align="center">欢迎来到英语论文写作助手</h1>
-<h3 align="center"><a href="<?php echo site_url('contribute');?>">贡献句型</a></h3>
+<h3 align="center"><a href="<?php echo site_url('upload');?>">贡献句型</a></h3>
 
 <form name="form1" action="<?php echo site_url('ctrl_querysentence/query');?>" method="post">
 <table align="center">
@@ -84,9 +84,6 @@ if(@$arrcn):?>
 <br><br><h4 align="center">无中文搜索结果</h4>
 <?php endif;
 endif;?>
-
-<p><a href="<?php echo site_url('upload');?>">提交句型</a></p>
-
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
