@@ -20,8 +20,71 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 </head>
+<script language="javascript">
+	function check(){
+		if(form1.querytext.value=="") {
+			alert("查询内容不能为空！");
+			form1.querytext.focus();
+			return false;
+		}
+	}
+</script>
 <body>
-<h1>你好，世界！</h1>
+<h1 align="center">欢迎来到英语论文写作助手</h1>
+<h3 align="center"><a href="<?php echo site_url('contribute');?>">贡献句型</a></h3>
+
+<form name="form1" action="<?php echo site_url('ctrl_querysentence/query');?>" method="post">
+<table align="center">
+	<tr>
+		<td><h3 align="center">查询</h3></td>
+		<td><input type="text" name="querytext"></td>
+		<td><input type="submit" value="提交" onclick="return check();"></td>
+	</tr>
+</table>
+</form>
+
+<?php if(@$arren || @$arrcn):?>
+<?php if(@$arren):?>
+<h4 align="center">英文搜索结果</h4>
+<table border="1" align="center" width="1000">
+	<tr>
+		<th align="center">句型</th>
+		<th align="center">所属用户</th>
+		<th align="center">评分</th>
+	</tr>
+	<?php
+	foreach($arren as $item): ?>
+		<tr>
+			<td align="center"><?=$item->statement?></td>;
+			<td align="center"><?=$item->user_name?></td>;
+			<td align="center"><?=$item->points?></td>;
+		</tr>
+	<?php endforeach;?>
+</table>
+<?php else:?>
+<h4 align="center">无英文搜索结果</h4>
+<?php endif;
+if(@$arrcn):?>
+<br><br><h4 align="center">中文搜索结果</h4>
+<table border="1" align="center" width="1000">
+	<tr>
+		<th align="center">句型</th>
+		<th align="center">所属用户</th>
+		<th align="center">评分</th>
+	</tr>
+	<?php foreach($arrcn as $item): ?>
+		<tr align="center">
+			<td align="center"><?=$item->statement?></td>;
+			<td align="center"><?=$item->user_name?></td>;
+			<td align="center"><?=$item->points?></td>;
+		</tr>
+	<?php endforeach; ?>
+</table>
+<?php else:?>
+<br><br><h4 align="center">无中文搜索结果</h4>
+<?php endif;
+endif;?>
+
 <p><a href="<?php echo site_url('upload');?>">提交句型</a></p>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
