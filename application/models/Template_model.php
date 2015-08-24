@@ -7,12 +7,24 @@ class Template_model extends CI_Model
     function __construct()
     {
         parent::__construct();
+        $this->load->model('semantic_model');
     }
 
-    public function set_template( $temp_template )
+    public function set_template( $topic, $content, $checked = 0)
     {
-        $this->db->insert($this->table, $temp_template);
-        return $this->db->insert_id();
+        $arr = array(
+            'name' => $topic
+        );
+        $semantic_id = $this->semantic_model->set_semantic($arr);
+        $arr = array(
+            'topic' => $topic,
+            'statement' => $content,
+            'semantic_id' => $semantic_id,
+            'is_checked' => $checked
+        );
+
+        $this->db->insert($this->table, $arr);
+//        return $this->db->insert_id();
     }
 
     public function get_template( $is_checked ) {

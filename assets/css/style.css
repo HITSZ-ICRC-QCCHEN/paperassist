@@ -28,10 +28,8 @@
 	font-size:20px;
 	font-weight:normal;
 }
-.btn-login, .btn-reset{
-	width: 100px;
-}
 .btn-login{
+	width: 100px;
 	margin-left: 42px;
 	margin-right: 12px;
 }

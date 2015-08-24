@@ -270,11 +270,18 @@
                                   <label for="content">内容</label>
                                   <textarea rows="18" class="form-control" id="content" name="content"></textarea>
                                 </div>
-                                <div>
+                                <div class="btn-cont-group">
                                   <label for="submit"> </label>
                                   <div class="controls">
                                     <input type="button" value="通过" class="btn btn-inverse btn-pass">
                                     <input type="button" value="不通过" class="btn btn-inverse btn-unpass">
+                                  </div>
+                                </div>
+                                <div class="btn-doc-group" style="display: none;">
+                                  <label for="submit"> </label>
+                                  <div class="controls">
+                                    <input type="button" value="添加" class="btn btn-inverse btn-add">
+                                    <input type="button" value="重置" class="btn btn-inverse btn-reset">
                                   </div>
                                 </div>
                               </form>
@@ -297,11 +304,18 @@
                                   <label for="chinese">对应中文</label>
                                   <textarea class="form-control" id="chinese" name="chinese"></textarea>
                                 </div>
-                                <div>
+                                <div class="btn-cont-group">
                                   <label for="submit"> </label>
                                   <div class="controls">
                                     <input type="button" value="通过" class="btn btn-inverse btn-pass">
                                     <input type="button" value="不通过" class="btn btn-inverse btn-unpass">
+                                  </div>
+                                </div>
+                                <div class="btn-doc-group" style="display: none;">
+                                  <label for="submit"> </label>
+                                  <div class="controls">
+                                    <input type="button" value="添加" class="btn btn-inverse btn-add">
+                                    <input type="button" value="重置" class="btn btn-inverse btn-reset">
                                   </div>
                                 </div>
                               </form>
@@ -325,11 +339,18 @@
                                   <!-- <label for="word2">单词</label> -->
                                   <textarea class="form-control" id="word2" name="word2"></textarea>
                                 </div>
-                                <div>
+                                <div class="btn-cont-group">
                                   <label for="submit"> </label>
                                   <div class="controls">
                                     <input type="button" value="通过" class="btn btn-inverse btn-pass">
                                     <input type="button" value="不通过" class="btn btn-inverse btn-unpass">
+                                  </div>
+                                </div>
+                                <div class="btn-doc-group" style="display: none;">
+                                  <label for="submit"> </label>
+                                  <div class="controls">
+                                    <input type="button" value="添加" class="btn btn-inverse btn-add">
+                                    <input type="button" value="重置" class="btn btn-inverse btn-reset">
                                   </div>
                                 </div>
                               </form>
@@ -416,216 +437,298 @@
 
     <script>
     $(document).ready(function(){
+      // 全局变量
+      var ti = 0, si = 0, wi = 0;
+      var template = <?php echo $template ?>;
+      var sentence = <?php echo $sentence ?>;
+      var word     = <?php echo $word ?>;
+      var tCount = <?php echo count(json_decode($template)) ?>;
+      var sCount = <?php echo count(json_decode($sentence)) / 2 ?>;
+      var wCount = <?php echo count(json_decode($word)) / 2 ?>;
+      var totalCount = tCount + sCount + wCount;
+
+      // 加载页面数据
+      loadTree();
+      loadForm();
+
+      // 切换表单
       $(".tree-item").click(function(){
         $(".tree-selected").removeClass("tree-selected");
         $(this).addClass("tree-selected");
       });
+
+      // 显示相应的按钮组
+      $("#auditContent .tree-item").click(function(){
+        loadForm();
+        $('.btn-cont-group').css('display', "block");
+        $('.btn-doc-group').css('display', "none");
+      });
+      $("#auditDoc .tree-item").click(function(){
+        clearForm();
+        $('.btn-cont-group').css('display', "none");
+        $('.btn-doc-group').css('display', "block");
+      });
+
+      // 打开相应文档目录
       $(".tree-item-name>a").click(function(){
-        alert("1");
+        alert("打开目录");
         return false;// 屏蔽其他事件
       });
-    });
-    </script>
-    <script>
-      $(document).ready(function(){
-        var ti = 0, si = 0, wi = 0;
-        var template = <?php echo $template ?>;
-        var sentence = <?php echo $sentence ?>;
-        var word     = <?php echo $word ?>;
-        var tCount = <?php echo count(json_decode($template)) ?>;
-        var sCount = <?php echo count(json_decode($sentence)) / 2 ?>;
-        var wCount = <?php echo count(json_decode($word)) / 2 ?>;
-        var totalCount = tCount + sCount + wCount;
 
-        // 加载页面数据
+      function loadTree() {
         $('#auditContent .tree-folder-name span').text(totalCount);
         $('#auditContent .tree-item-template span').text(tCount);
         $('#auditContent .tree-item-sentence span').text(sCount);
         $('#auditContent .tree-item-word span').text(wCount);
+      }
 
+      function loadForm() {
         if(ti < tCount) {
-          $('#topic').attr("value", template[ti].topic);
-          $('#content').text(template[ti].statement);
+          $('#topic').val(template[ti].topic);
+          $('#content').val(template[ti].statement);
         }else {
           disable_audit("template");// 设置按钮不可用
         }
         if(si < sCount) { // 只有中英文一起才显示审核
-          $('#english').text(sentence[si].statement);
-          $('#chinese').text(sentence[si+1].statement);
+          $('#english').val(sentence[si].statement);
+          $('#chinese').val(sentence[si+1].statement);
         }else {
           disable_audit("sentence");
         }
         if(wi < wCount) {
-          $('#word1').text(word[wi].statement);
-          $('#word2').text(word[wi+1].statement);
+          $('#word1').val(word[wi].statement);
+          $('#word2').val(word[wi+1].statement);
         }else {
           disable_audit("word");
         }
+      }
 
-        $("#template .btn").click(function(){
-          var data = {
-            pass: 1, // 默认审核通过
-            id: template[ti].id,
-            topic: template[ti].topic,
-            content: template[ti].statement
-          };
-          if($(this).hasClass('btn-unpass')) {
-            data['pass'] = 0;
-          }
-          $.ajax({
-            type: 'POST',
-            url: "<?=site_url('/admin/doaudit_template')?>",
-            data: data,
-            dataType: "json",
-            success: function(data, status){
-              alert(data);
-              totalCount--;tCount--;ti++;
-              $('#auditContent .tree-folder-name span').text(totalCount);
-              $('#auditContent .tree-item-template span').text(tCount);
-              var topic = "", content = "";
-              if(tCount > 0) {
-                topic = template[ti].topic;
-                content = template[ti].statement;
-              }
-              $('#topic').attr("value", topic);
-              $('#content').text(content);
-              return true;
-            },
-            error: function(){
-              alert("系统出错，无法审核！");// Ajax failed
-              return false;
-            }
-          });
-        });
-        $("#sentence .btn").click(function(){
-          var data = {
-            pass: 1, // 默认审核通过
-            id1: sentence[si].id,
-            id2: sentence[si+1].id,
-            english: sentence[si].statement,
-            chinese: sentence[si+1].statement
-          };
-          if($(this).hasClass('btn-unpass')) {
-            data['pass'] = 0;
-          }
-          $.ajax({
-            type: 'POST',
-            url: "<?=site_url('/admin/doaudit_sentence')?>",
-            data: data,
-            dataType: "json",
-            success: function(data, status){
-              alert(data);
-              totalCount--;sCount--;si = si + 2;
-              $('#auditContent .tree-folder-name span').text(totalCount);
-              $('#auditContent .tree-item-sentence span').text(sCount);
-              var english = "", chinese = "";
-              if(sCount > 0) {
-                english = sentence[si].statement;
-                chinese = sentence[si+1].statement;
-              }
-              $('#english').text(english);
-              $('#chinese').text(chinese);
-              return true;
-            },
-            error: function(){
-              alert("系统出错，无法审核！");// Ajax failed
-              return false;
-            }
-          });
-        });
+      function clearForm() {
+        $('#topic').val("");
+        $('#content').val("");
+        $('#english').val("");
+        $('#chinese').val("");
+        $('#word1').val("");
+        $('#word2').val("");
+      }
 
-        $("#word .btn").click(function(){
-          var data = {
-            pass: 1, // 默认审核通过
-            id1: word[wi].id,
-            id2: word[wi+1].id,
-            word1: word[wi].statement,
-            word2: word[wi+1].statement
-          };
-          if($(this).hasClass('btn-unpass')) {
-            data['pass'] = 0;
-          }
-          $.ajax({
-            type: 'POST',
-            url: "<?=site_url('/admin/doaudit_word')?>",
-            data: data,
-            dataType: "json",
-            success: function(data, status){
-              alert(data);
-              totalCount--;wCount--;wi = wi + 2;
-              $('#auditContent .tree-folder-name span').text(totalCount);
-              $('#auditContent .tree-item-word span').text(wCount);
-              var word1 = "", word2 = "";
-              if(wCount > 0) {
-                word1 = word[wi].statement;
-                word2 = word[wi+1].statement;
-              }
-              $('#word1').text(word1);
-              $('#word2').text(word2);
-              return true;
-            },
-            error: function(){
-              alert("系统出错，无法审核！");// Ajax failed
-              return false;
-            }
-          });
-        });
+      function disable_audit( typeId ) {
+        $("#"+typeId+" .btn-pass").attr("disabled", true);
+        $("#"+typeId+" .btn-unpass").attr("disabled", true);
+      }
 
-        function disable_audit( typeId ) {
-          $("#"+typeId+" .btn").attr("disabled", true);
+      function enable_audit( typeId ) {
+        $("#"+typeId+" .btn-pass").attr("disabled", false);
+        $("#"+typeId+" .btn-unpass").attr("disabled", false);
+      }
+
+      $("#template .btn-cont-group .btn").click(function(){
+        var data = {
+          pass: 1, // 默认审核通过
+          id: template[ti].id,
+          topic: $('#topic').val(),
+          content: $('#content').val()
+        };
+        if($(this).hasClass('btn-unpass')) {
+          data['pass'] = 0;
         }
-
-        function enable_audit( typeId ) {
-          $("#"+typeId+" .btn").attr("disabled", false);
-        }
-
+        $.ajax({
+          type: 'POST',
+          url: "<?=site_url('/admin/doaudit_template')?>",
+          data: data,
+          dataType: "json",
+          success: function(data, status){
+            alert(data);
+            totalCount--;tCount--;ti++;
+            $('#auditContent .tree-folder-name span').val(totalCount);
+            $('#auditContent .tree-item-template span').val(tCount);
+            var topic = "", content = "";
+            if(tCount > 0) {
+              topic = template[ti].topic;
+              content = template[ti].statement;
+            }
+            $('#topic').val(topic);
+            $('#content').val(content);
+            return true;
+          },
+          error: function(){
+            alert("系统出错，无法审核！");// Ajax failed
+            return false;
+          }
+        });
       });
+      $("#template .btn-doc-group .btn-add").click(function(){
+        var topic = $('#topic').val();
+        var content = $('#content').val();
+        if(topic == "" || content == "") {
+          alert("主题和内容输入框都不能为空");
+          return;
+        }
+        var data = {
+          topic: topic,
+          content: content
+        };
+        $.ajax({
+          type: 'POST',
+          url: "<?=site_url('/admin/add_template')?>",
+          data: data,
+          dataType: "json",
+          success: function(data, status){
+            alert("添加成功");
+            $('#topic').val("");
+            $('#content').val("");
+            return true;
+          },
+          error: function(){
+            alert("系统出错，无法添加！");// Ajax failed
+            return false;
+          }
+        });
+      });
+      $("#template .btn-doc-group .btn-reset").click(function() {
+        $('#topic').val("");
+        $('#content').val("");
+      });
+
+      $("#sentence .btn-cont-group .btn").click(function(){
+        var data = {
+          pass: 1, // 默认审核通过
+          id1: sentence[si].id,
+          id2: sentence[si+1].id,
+          english: $('#english').val(),
+          chinese: $('#chinese').val()
+        };
+        if($(this).hasClass('btn-unpass')) {
+          data['pass'] = 0;
+        }
+        $.ajax({
+          type: 'POST',
+          url: "<?=site_url('/admin/doaudit_sentence')?>",
+          data: data,
+          dataType: "json",
+          success: function(data, status){
+            alert(data);
+            totalCount--;sCount--;si = si + 2;
+            $('#auditContent .tree-folder-name span').val(totalCount);
+            $('#auditContent .tree-item-sentence span').val(sCount);
+            var english = "", chinese = "";
+            if(sCount > 0) {
+              english = sentence[si].statement;
+              chinese = sentence[si+1].statement;
+            }
+            $('#english').val(english);
+            $('#chinese').val(chinese);
+            return true;
+          },
+          error: function(){
+            alert("系统出错，无法审核！");// Ajax failed
+            return false;
+          }
+        });
+      });
+      $("#sentence .btn-doc-group .btn-add").click(function(){
+        var english = $('#english').val();
+        var chinese = $('#chinese').val();
+        if(english == "" || chinese == "") {
+          alert("英文及其对应中文输入框都不能为空");
+          return;
+        }
+        var data = {
+          english: english,
+          chinese: chinese
+        };
+        $.ajax({
+          type: 'POST',
+          url: "<?=site_url('/admin/add_sentence')?>",
+          data: data,
+          dataType: "json",
+          success: function(data, status){
+            alert("添加成功");
+            $('#english').val("");
+            $('#chinese').val("");
+            return true;
+          },
+          error: function(){
+            alert("系统出错，无法添加！");// Ajax failed
+            return false;
+          }
+        });
+      });
+      $("#sentence .btn-doc-group .btn-reset").click(function() {
+        $('#english').val("");
+        $('#chinese').val("");
+      });
+
+      $("#word .btn-cont-group .btn").click(function(){
+        var data = {
+          pass: 1, // 默认审核通过
+          id1: word[wi].id,
+          id2: word[wi+1].id,
+          word1: $('#word1').val(),
+          word2: $('#word2').val()
+        };
+        if($(this).hasClass('btn-unpass')) {
+          data['pass'] = 0;
+        }
+        $.ajax({
+          type: 'POST',
+          url: "<?=site_url('/admin/doaudit_word')?>",
+          data: data,
+          dataType: "json",
+          success: function(data, status){
+            alert(data);
+            totalCount--;wCount--;wi = wi + 2;
+            $('#auditContent .tree-folder-name span').val(totalCount);
+            $('#auditContent .tree-item-word span').val(wCount);
+            var word1 = "", word2 = "";
+            if(wCount > 0) {
+              word1 = word[wi].statement;
+              word2 = word[wi+1].statement;
+            }
+            $('#word1').val(word1);
+            $('#word2').val(word2);
+            return true;
+          },
+          error: function(){
+            alert("系统出错，无法审核！");// Ajax failed
+            return false;
+          }
+        });
+      });
+      $("#word .btn-doc-group .btn-add").click(function(){
+        var word1 = $('#word1').val();
+        var word2 = $('#word2').val();
+        if(word1 == "" || word2 == ""){
+          alert("两个单词输入框都不能为空");
+          return;
+        }
+        var data = {
+          word1: word1,
+          word2: word2
+        };
+        $.ajax({
+          type: 'POST',
+          url: "<?=site_url('/admin/add_word')?>",
+          data: data,
+          dataType: "json",
+          success: function(data, status){
+            alert("添加成功");
+            $('#word1').val("");
+            $('#word2').val("");
+            return true;
+          },
+          error: function(){
+            alert("系统出错，无法添加！");// Ajax failed
+            return false;
+          }
+        });
+      });
+      $("#word .btn-doc-group .btn-reset").click(function() {
+        $('#word1').val("");
+        $('#word2').val("");
+      });
+
+    });
     </script>
-  <script>
-//    $(document).ready(function(){
-//      $("#template .btn-pass").click(function(){
-//        $.ajax({
-//          type: 'POST',
-//          url: "<?//=site_url('/admin/doaudit_template')?>//",
-//          data: {
-//            id: template[ti].id,
-//            topic: template[ti].topic,
-//            content: template[ti].statement
-//          },
-//          dataType: "json",
-//          success: function(data, status){
-//            ti++;
-//            $('#topic').attr("value", template[ti].topic);
-//            $('#content').text(template[ti].statement);
-//            return true;
-//          },
-//          error: function(){
-//            alert('Ajax failed');
-//            return false;
-//          }
-//        });
-//      });
-//      $("#template .btn-unpass").click(function(){
-//        $.ajax({
-//          type: 'POST',
-//          url: "<?//=site_url('/admin/doaudit_template')?>//",
-//          data: {
-//            id: template[ti].id,
-//          },
-//          dataType: "json",
-//          success: function(data, status){
-//            ti++;
-//            $('#topic').attr("value", template[ti].topic);
-//            $('#content').text(template[ti].statement);
-//            return true;
-//          },
-//          error: function(){
-//            alert('Ajax failed');
-//            return false;
-//          }
-//        });
-//      });
-//    });
-  </script>
 </body>
 </html>

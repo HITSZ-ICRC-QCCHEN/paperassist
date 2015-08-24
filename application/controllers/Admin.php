@@ -153,6 +153,30 @@ class Admin extends CI_Controller {
         }
     }
 
+    function add_template()
+    {
+        $topic = $this->input->post('topic');
+        $content = $this->input->post('content');
+        $this->template_model->set_template($topic, $content, 1);
+        $this->response_data("添加完成");
+    }
+
+    function add_sentence()
+    {
+        $english = $this->input->post('english');
+        $chinese = $this->input->post('chinese');
+        $this->sentence_model->set_sentence($english, $chinese, 1);
+        $this->response_data("添加完成");
+    }
+
+    function add_word()
+    {
+        $word1 = $this->input->post('word1');
+        $word2 = $this->input->post('word2');
+        $this->word_model->set_word($word1, $word2, 1);
+        $this->response_data("添加完成");
+    }
+
     function response_data($data){
         $this->output->set_header('Content-Type: application/json; charset=utf-8');
         echo json_encode($data);

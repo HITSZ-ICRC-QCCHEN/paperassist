@@ -21,7 +21,7 @@ class Upload extends CI_Controller {
     {
         parent::__construct();
 
-        $this->load->model('semantic_model');
+//        $this->load->model('semantic_model');
         $this->load->model('template_model');
         $this->load->model('sentence_model');
         $this->load->model('word_model');
@@ -75,17 +75,7 @@ class Upload extends CI_Controller {
             }else if (empty($content)) {
                 $data['error'] = "内容不能为空";
             }else {
-                // 往semantic表插入一条记录
-                $arr = array(
-                    'name' => $topic
-                );
-                $semantic_id = $this->semantic_model->set_semantic($arr);
-                $arr = array(
-                    'topic' => $topic,
-                    'statement' => $content,
-                    'semantic_id' => $semantic_id
-                );
-                $this->template_model->set_template($arr);
+                $this->template_model->set_template($topic, $content);
                 $data['info'] = "提交内容成功，等待审核。";
 //                redirect('upload', "refresh");
 //                return;
@@ -121,24 +111,7 @@ class Upload extends CI_Controller {
             if( empty($english) || empty($chinese)) {
                 $data['error'] = "英文及其对应中文都要填写";
             }else {
-                // 往semantic表插入一条记录
-                $arr = array(
-                    'name' => null
-                );
-                $semantic_id = $this->semantic_model->set_semantic($arr);
-
-                $arr = array(
-                    'statement' => $english,
-                    'language' => 'english',
-                    'semantic_id' => $semantic_id
-                );
-                $this->sentence_model->set_sentence($arr);
-                $arr = array(
-                    'statement' => $chinese,
-                    'language' => 'chinese',
-                    'semantic_id' => $semantic_id
-                );
-                $this->sentence_model->set_sentence($arr);
+                $this->sentence_model->set_sentence($english, $chinese);
                 $data['info'] = "提交内容成功，等待审核";
 //                redirect('upload', 'location', 303);
 //                return;
@@ -171,26 +144,10 @@ class Upload extends CI_Controller {
             $word1 = $this->input->post('word1');
             $word2 = $this->input->post('word2');
 
-            // 往semantic表插入一条记录
-            $arr = array(
-                'name' => null
-            );
-            $semantic_id = $this->semantic_model->set_semantic($arr);
             if( empty($word1) || empty($word2)) {
                 $data['error'] = "两个单词输入框都要填写";
             }else {
-                $arr = array(
-                    'statement' => $word1,
-                    'semantic_id' => $semantic_id,
-                    'rank' => 0
-                );
-                $this->word_model->set_word($arr);
-                $arr = array(
-                    'statement' => $word2,
-                    'semantic_id' => $semantic_id,
-                    'rank' => 1
-                );
-                $this->word_model->set_word($arr);
+                $this->word_model->set_word($word1, $word2);
                 $data['info'] = "提交内容成功，等待审核";
             }
         }

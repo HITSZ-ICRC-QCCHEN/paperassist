@@ -6,12 +6,32 @@ class Sentence_model extends CI_Model {
     function __construct()
     {
         parent::__construct();
+        $this->load->model('semantic_model');
     }
 
-    public function set_sentence( $temp_sentence )
+    public function set_sentence( $english, $chinese , $checked = 0)
     {
-        $this->db->insert($this->table, $temp_sentence);
-        return $this->db->insert_id();
+        // 往semantic表插入一条记录
+        $arr = array(
+            'name' => null
+        );
+        $semantic_id = $this->semantic_model->set_semantic($arr);
+
+        $arr = array(
+            'statement' => $english,
+            'language' => 'english',
+            'semantic_id' => $semantic_id,
+            'is_checked' => $checked
+        );
+        $this->db->insert($this->table, $arr);
+        $arr = array(
+            'statement' => $chinese,
+            'language' => 'chinese',
+            'semantic_id' => $semantic_id,
+            'is_checked' => $checked
+        );
+        $this->db->insert($this->table, $arr);
+//        return $this->db->insert_id();
     }
 
     public function get_sentence( $is_checked )
