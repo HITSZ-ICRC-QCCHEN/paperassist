@@ -1,0 +1,48 @@
+.uploadBox{
+	width: 650px;
+	margin: auto;
+	position: relative;
+}
+.uploadBox a {
+	position: relative;
+	padding-top: 4px;
+	font-size: 14px;
+}
+.loginBox{
+	width:450px;
+	padding:0 70px;
+	border:1px solid #fff;
+	color:#000;
+	margin-top:40px;
+	border-radius:8px;
+	background: white;
+	box-shadow:0 0 15px #222;
+	font:11px/1.5em 'Microsoft YaHei' ;
+	position: absolute;
+	left:50%;
+	top:50%;
+	margin-left:-210px;
+	margin-top:-115px;
+}
+.loginBox h3{
+	font-size:20px;
+	font-weight:normal;
+}
+.btn-login, .btn-reset{
+	width: 100px;
+}
+.btn-login{
+	margin-left: 42px;
+	margin-right: 12px;
+}
+.nav>li>a>i.icon-remove {
+	color: #E09E96;
+	cursor: pointer;
+}
+a:link {
+	text-decoration: none;
+}
+.tree-item-name>a {
+	cursor: default;
+	z-index: 2;
+}
