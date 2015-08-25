@@ -6,31 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>后台管理</title>
     <!-- basic styles -->
-    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../../assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome.min.css" />
 
     <!-- ace styles -->
-    <link rel="stylesheet" href="../../assets/css/ace.min.css" />
-    <link rel="stylesheet" href="../../assets/css/ace-rtl.min.css" />
-    <link rel="stylesheet" href="../../assets/css/ace-skins.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/ace.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/ace-rtl.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/ace-skins.min.css" />
 
     <!-- extra styles -->
-    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/style.css">
 
     <!--[if lte IE 8]>
-      <link rel="stylesheet" href="../../assets/css/ace-ie.min.css" />
+      <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/ace-ie.min.css" />
     <![endif]-->
 
     <!-- inline styles related to this page -->
 
     <!-- ace settings handler -->
-    <script src="../../assets/js/ace-extra.min.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/ace-extra.min.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
     <!--[if lt IE 9]>
-    <script src="../../assets/js/html5shiv.js"></script>
-    <script src="../../assets/js/respond.min.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/html5shiv.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/respond.min.js"></script>
     <![endif]-->
   </head>
 
@@ -111,7 +111,7 @@
 
             <li class="light-blue">
               <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                <img class="nav-user-photo" src="../../assets/avatars/user.jpg" alt="Jason's Photo" />
+                <img class="nav-user-photo" src="<?php echo base_url() ?>assets/avatars/user.jpg" alt="Jason's Photo" />
                 <span class="user-info">
                   <small>欢迎光临,</small>
                   Jason
@@ -242,7 +242,62 @@
 
                     <div class="tab-content">
                       <div id="home" class="tab-pane active">
-                        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <div class="widget-box">
+                              <div class="widget-header widget-header-flat">
+                                <h4 class="smaller">系统信息</h4>
+                              </div>
+
+                              <div class="widget-body">
+                                <div class="widget-main">
+                                  <dl class="dl-horizontal" id="dt-list-1">
+                                    <dt>操作系统</dt>
+                                    <dd><?php echo $systeminfo['system_os'] ?></dd>
+                                    <dt>运行环境</dt>
+                                    <dd><?php echo $systeminfo['environment'] ?></dd>
+                                    <dt>PHP运行方式</dt>
+                                    <dd><?php echo $systeminfo['phpapi'] ?></dd>
+                                    <dt>MySQL版本</dt>
+                                    <dd><?php echo $systeminfo['mysqlver'] ?></dd>
+                                    <dt>浏览器版本</dt>
+                                    <dd><?php echo $systeminfo['browser'][0] . "&nbsp;" . $systeminfo['browser'][1] ?></dd>
+                                    <dt>上传附件限制</dt>
+                                    <dd><?php echo $systeminfo['filelimit'] ?></dd>
+                                    <dt>执行时间限制</dt>
+                                    <dd><?php echo $systeminfo['execlimit'] ?></dd>
+                                  </dl>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="space-6"></div>
+
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <div class="widget-box">
+                              <div class="widget-header widget-header-flat">
+                                <h4 class="smaller">
+                                  个人信息
+                                </h4>
+                              </div>
+
+                              <div class="widget-body">
+                                <div class="widget-main">
+                                  <dl class="dl-horizontal" id="dt-list-1">
+                                    <dt>上次登录时间</dt>
+                                    <dd>2014-06-06 06:06:06</dd>
+                                    <dt>上次登录ip</dt>
+                                    <dd>127.0.0.1</dd>
+                                  </dl>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
                       <div id="userlist" class="tab-pane">
@@ -428,11 +483,11 @@
 
     <!-- basic scripts -->
     <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
 
     <!-- ace scripts -->
-    <script src="../../assets/js/ace-elements.min.js"></script>
-    <script src="../../assets/js/ace.min.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/ace-elements.min.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/ace.min.js"></script>
 
 </body>
 </html>

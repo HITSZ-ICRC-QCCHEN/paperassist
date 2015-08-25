@@ -534,7 +534,7 @@
         }
         $.ajax({
           type: 'POST',
-          url: "<?=site_url('/admin/doaudit_template')?>",
+          url: "<?=site_url('/admin/audit/doaudit_template')?>",
           data: data,
           dataType: "json",
           success: function(data, status){
@@ -570,7 +570,7 @@
         };
         $.ajax({
           type: 'POST',
-          url: "<?=site_url('/admin/add_template')?>",
+          url: "<?=site_url('/admin/audit/add_template')?>",
           data: data,
           dataType: "json",
           success: function(data, status){
@@ -603,7 +603,7 @@
         }
         $.ajax({
           type: 'POST',
-          url: "<?=site_url('/admin/doaudit_sentence')?>",
+          url: "<?=site_url('/admin/audit/doaudit_sentence')?>",
           data: data,
           dataType: "json",
           success: function(data, status){
@@ -639,7 +639,7 @@
         };
         $.ajax({
           type: 'POST',
-          url: "<?=site_url('/admin/add_sentence')?>",
+          url: "<?=site_url('/admin/audit/add_sentence')?>",
           data: data,
           dataType: "json",
           success: function(data, status){
@@ -672,7 +672,7 @@
         }
         $.ajax({
           type: 'POST',
-          url: "<?=site_url('/admin/doaudit_word')?>",
+          url: "<?=site_url('/admin/audit/doaudit_word')?>",
           data: data,
           dataType: "json",
           success: function(data, status){
@@ -708,7 +708,7 @@
         };
         $.ajax({
           type: 'POST',
-          url: "<?=site_url('/admin/add_word')?>",
+          url: "<?=site_url('/admin/audit/add_word')?>",
           data: data,
           dataType: "json",
           success: function(data, status){

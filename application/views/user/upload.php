@@ -110,7 +110,7 @@
                     </div>
                     <div>
                       <label for="content">内容</label>
-                      <textarea rows="15" class="form-control" id="content" name="content"></textarea>
+                      <textarea rows="24" class="form-control" id="content" name="content"></textarea>
                     </div>
                     <div>
                       <label>您也可以直接上传附件</label>
@@ -133,11 +133,11 @@
                   <?php echo form_open_multipart('upload/create_sentence') ?>
                     <div>
                       <label for="english">英文</label>
-                      <textarea class="form-control" id="english" name="english"></textarea>
+                      <textarea rows="4" class="form-control" id="english" name="english"></textarea>
                     </div>
                     <div>
                       <label for="chinese">对应中文</label>
-                      <textarea class="form-control" id="chinese" name="chinese"></textarea>
+                      <textarea rows="4" class="form-control" id="chinese" name="chinese"></textarea>
                     </div>
                     <div>
                       <label>您也可以直接上传附件</label>
@@ -159,11 +159,11 @@
                 <div class="widget-main">
                   <?php echo form_open_multipart('upload/create_word') ?>
                     <div>
-                      <textarea class="form-control" id="word1" name="word1"></textarea>
+                      <textarea rows="4" class="form-control" id="word1" name="word1"></textarea>
                     </div>
                     <label>替换</label>
                     <div>
-                      <textarea class="form-control" id="word2" name="word2"></textarea>
+                      <textarea rows="4" class="form-control" id="word2" name="word2"></textarea>
                     </div>
                     <div>
                       <label>您也可以直接上传附件</label>

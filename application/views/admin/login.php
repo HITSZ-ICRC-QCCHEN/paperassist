@@ -68,7 +68,7 @@
                       }
                       ?>
 
-                      <?php echo form_open('admin/dologin') ?>
+                      <?php echo form_open('admin/login/dologin') ?>
                         <fieldset>
                           <label class="block clearfix">
                             <span class="block input-icon input-icon-right">

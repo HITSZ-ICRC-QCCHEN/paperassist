@@ -1,81 +1,17 @@
 <?php
 
-class Admin extends CI_Controller {
-
+class Audit extends MY_Controller
+{
     var $data = array();
 
-    function __construct()
-    {
+    public function __construct() {
         parent::__construct();
-
-        $this->load->library('form_validation');
-        $this->load->model('user_model');
-        $this->load->model('role_model');
         $this->load->model('template_model');
         $this->load->model('sentence_model');
         $this->load->model('word_model');
     }
 
     public function index()
-    {
-        // 检查是否登录
-        $user_data = $this->user_model->is_logged_in();
-        if ($user_data !== false) {
-            if ($user_data['user']['role_id'] == 2) { // 内容审核员
-                Header("Location: " . site_url('admin/audit'));
-            }
-            else {                       // 管理员
-//                Header("Location: " . site_url('admin/index'));
-                $this->load->view('admin/index');
-            }
-        }
-        else {
-            redirect('admin/login');
-        }
-    }
-
-    public function login() {
-        $this->load->view('admin/login');
-    }
-
-    public function dologin()
-    {
-        if($this->check_loginform() == FALSE) {
-            $this->login();
-        }
-        else {
-            $username = $this->input->post('username');
-            $password = $this->input->post('password');
-            $rolename = $this->input->post('rolename');
-
-            if ($user = $this->user_model->get_by_username($username)) {
-                if ($this->role_model->check_role($rolename, $user['role_id'])) {
-                    if ($this->user_model->check_password($password, $user['password'])) {
-                        $this->user_model->save_user_session($user);
-                        redirect('admin');
-                    } else {
-                        $this->data['login_error'] = '用户名或者密码不正确';
-                    }
-                } else {
-                    $this->data['login_error'] = '角色不符合';
-                }
-            } else {
-                $this->data['login_error'] = '用户名没找到';
-            }
-            $this->load->view('admin/login', $this->data);
-        }
-    }
-
-    public function check_loginform()
-    {
-        $this->form_validation->set_rules('username', '用户名', 'required');
-        $this->form_validation->set_rules('password', '密码', 'required');
-//        $this->form_validation->set_rules('rolename', "角色名", 'required');
-
-        return $this->form_validation->run();
-    }
-
-    public function audit()
     {
         // 1.读取未审核内容的详细信息
         // 2.读取第一条待审核的模板
@@ -181,5 +117,4 @@ class Admin extends CI_Controller {
         $this->output->set_header('Content-Type: application/json; charset=utf-8');
         echo json_encode($data);
     }
-
 }
