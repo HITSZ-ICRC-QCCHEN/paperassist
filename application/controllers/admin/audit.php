@@ -21,7 +21,9 @@ class Audit extends MY_Controller
         $data['sentence'] = json_encode($this->sentence_model->get_sentence(0));
         $data['word']     = json_encode($this->word_model->get_word(0));
 
+        $this->load->view('admin/include/header', $data);
         $this->load->view('admin/audit', $data);
+        $this->load->view('admin/include/footer', $data);
     }
 
     function doaudit_template()

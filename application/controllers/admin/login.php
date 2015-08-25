@@ -37,7 +37,7 @@ class Login extends CI_Controller
 
     public function dologin()
     {
-        if($this->check_loginform() == FALSE) {
+        if($this->check_loginform() === false) {
             $this->login();
         }
         else {
@@ -48,9 +48,8 @@ class Login extends CI_Controller
             if ($user = $this->user_model->get_by_username($username)) {
                 if ($this->role_model->check_role($rolename, $user['role_id'])) {
                     if ($this->user_model->check_password($password, $user['password'])) {
-//                        $this->user_model->save_user_session($user);
-//                        redirect('admin');
-                        if($rolename == "内容审核员") redirect('admin/audit');
+                        $this->user_model->save_user_session($user);
+                        if(!strcmp($rolename, "内容审核员")) redirect('admin/audit');
                         else redirect('admin/index');
                     } else {
                         $this->data['login_error'] = '用户名或者密码不正确';
@@ -72,6 +71,16 @@ class Login extends CI_Controller
 //        $this->form_validation->set_rules('rolename', "角色名", 'required');
 
         return $this->form_validation->run();
+    }
+
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        if (empty($this->user)) {
+            redirect('admin/login');
+        } else {
+            echo '注销失败!';
+        }
     }
 
 }
