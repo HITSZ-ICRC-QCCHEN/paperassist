@@ -12,7 +12,6 @@ class Index extends MY_Controller
 
     public function index()
     {
-//        $data['username'] = $this->username;
         $data['systeminfo'] = $this->systeminfo;
 
         $this->load->view('admin/include/header', $data);
