@@ -10,6 +10,12 @@ class User_model extends CI_Model {
         $this->load->library('session');
     }
 
+    function get_all_user()
+    {
+        $query = $this->db->get($this->table);
+        return $query->result();
+    }
+
     function get_by_username( $username )
     {
         $query = $this->db->get_where($this->table, array('user_name' => $username), 1);

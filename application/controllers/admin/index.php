@@ -15,7 +15,32 @@ class Index extends MY_Controller
         $data['systeminfo'] = $this->systeminfo;
 
         $this->load->view('admin/include/header', $data);
+        $this->load->view('admin/include/sidebar', $data);
         $this->load->view('admin/index', $data);
+        $this->load->view('admin/include/footer', $data);
+    }
+
+    public function userlist()
+    {
+        $this->load->model('user_model');
+        $this->load->model('role_model');
+        $data['users'] = $this->user_model->get_all_user();
+        $data['roles'] = $this->role_model->get_all_role();
+
+        $this->load->view('admin/include/header', $data);
+        $this->load->view('admin/include/sidebar', $data);
+        $this->load->view('admin/user/userlist', $data);
+        $this->load->view('admin/include/footer', $data);
+    }
+
+    public function rolelist()
+    {
+        $this->load->model('role_model');
+        $data['roles'] = $this->role_model->get_all_role();
+
+        $this->load->view('admin/include/header', $data);
+        $this->load->view('admin/include/sidebar', $data);
+        $this->load->view('admin/user/rolelist', $data);
         $this->load->view('admin/include/footer', $data);
     }
 

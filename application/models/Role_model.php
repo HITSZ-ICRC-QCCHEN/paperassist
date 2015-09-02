@@ -9,6 +9,12 @@ class Role_model extends CI_Model {
         parent::__construct();
     }
 
+    function get_all_role()
+    {
+        $query = $this->db->get($this->table);
+        return $query->result();
+    }
+
     function get_role($name = '')
     {
         $query = $this->db->get_where($this->table, array('name'=> $name));

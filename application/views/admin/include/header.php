@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>审核 - 模板&amp;句子&amp;单词</title>
+    <title></title>
     <!-- basic styles -->
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/font-awesome.min.css" />
@@ -46,7 +46,7 @@
 
         <div class="navbar-container" id="navbar-container">
             <div class="navbar-header pull-left">
-                <a href="#" class="navbar-brand" style="height: 45px;">
+                <a href="<?php echo site_url('admin/index') ?>" class="navbar-brand" style="height: 45px;">
                     <small>
                         <i class="icon-leaf"></i>
                         后台管理
