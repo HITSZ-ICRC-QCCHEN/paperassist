@@ -57,18 +57,21 @@ class Sentence_model extends CI_Model {
         }
     }
 
-    public function query_sentence( $querytext ,$language){
+    public function query_sentence( $querytext){
         $data[0]="%".$querytext."%";
-        $data[1]=$language;
-        $data[2]='1';
-        $sql="select user.user_name,$this->table.statement,$this->table.points from $this->table,user where
-              $this->table.semantic_id =any(select $this->table.semantic_id from $this->table where $this->table.statement LIKE ?)
-              and $this->table.language=?
-              and $this->table.is_checked=?
-              and user.id=$this->table.user_id";
-        //echo $this->db->last_query();
-        $res=$this->db->query($sql,$data);
-        return $res->result();
+        $data[1]='1';
+        $sql1="select distinct semantic_id from $this->table where statement LIKE ? and is_checked=?";
+        $sql2="select * from $this->table where semantic_id=? and is_checked=?";
+        $res=$this->db->query($sql1,$data);
+        $semantic_id=$res->result();
+        $length=count($semantic_id);
+        $sentence=array();
+        for($i=0;$i<$length;$i++) {
+            $data[0]=$semantic_id[$i]->semantic_id;
+            $res=$this->db->query($sql2,$data);
+            $sentence[$i]=$res->result();
+        }
+        return $sentence;
     }
 }
 ?>

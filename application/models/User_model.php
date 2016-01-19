@@ -65,4 +65,27 @@ class User_model extends CI_Model {
         $query = $this->db->get_where($this->table, array('role_id' => $auditor_id));
         return $query->row_array();
     }
+
+    function user_select($user_name)
+    {
+        $this->db->where('user_name',$user_name);
+        $this->db->or_where('email',$user_name);
+        $this->db->select('*');
+        $query = $this->db->get('user');
+        return $query->result();
+    }
+    function user_insert($arr_user)
+    {
+        return $this->db->insert("user",$arr_user);
+    }
+    function  updatePasstime($id,$getpasstime)
+    {
+        $data = array(
+            'getpasstime'=>$getpasstime
+        );
+        $this->db->where('id',$id);
+        $this->db->update('user',$data);
+        return $this->db->affected_rows();
+    }
+
 }

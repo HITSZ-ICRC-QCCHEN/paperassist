@@ -20,6 +20,11 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$this->load->library("session_check");
+		$isLogin=$this->session_check->isLogin();
+		$title=array("title"=>"英语论文写作助手","isLogin"=>$isLogin);
+		$this->load->view("template/header",$title);
+		$this->load->view("welcome_message");
+		$this->load->view("template/footer");
 	}
 }

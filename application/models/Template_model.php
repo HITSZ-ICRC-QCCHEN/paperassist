@@ -1,6 +1,5 @@
 <?php
-class Template_model extends CI_Model
-{
+class Template_model extends CI_Model {
 
     var $table = 'template';
 
@@ -50,4 +49,13 @@ class Template_model extends CI_Model
         }
     }
 
+    public function query_template($querytext){
+        $data[0]="%".$querytext."%";
+        $data[1]='1';
+        $sql="select * from $this->table where topic LIKE ? and is_checked=?";
+        $res=$this->db->query($sql,$data);
+        return $res->result();
+    }
 }
+?>
+

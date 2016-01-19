@@ -1,16 +1,15 @@
 <?php
-class Word_model extends CI_Model
-{
+
+class Word_model extends CI_Model {
 
     var $table = 'word';
 
     function __construct()
     {
         parent::__construct();
-        $this->load->model('semantic_model');
     }
 
-    public function set_word( $word1, $word2, $checked = 0 )
+	public function set_word( $word1, $word2, $checked = 0 )
     {
         // 往semantic表插入一条记录
         $arr = array(
@@ -57,4 +56,21 @@ class Word_model extends CI_Model
         }
     }
 
+    public function query_word($querytext){
+        $data[0]="%".$querytext."%";
+        $data[1]='1';
+        $sql1="select distinct semantic_id from $this->table where statement LIKE ? and is_checked=?";
+        $sql2="select * from $this->table where semantic_id=? and is_checked=?";
+        $res=$this->db->query($sql1,$data);
+        $semantic_id=$res->result();
+        $length=count($semantic_id);
+        $word=array();
+        for($i=0;$i<$length;$i++) {
+            $data[0]=$semantic_id[$i]->semantic_id;
+            $res=$this->db->query($sql2,$data);
+            $word[$i]=$res->result();
+        }
+        return $word;
+    }
 }
+?>
