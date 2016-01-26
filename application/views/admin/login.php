@@ -86,7 +86,7 @@
 
                           <div class="clear-fix">
                             <input type="radio" name="rolename" value="内容审核员" id="auditor" checked="checked">
-                            <label for="auditor">内容审核员</label>
+                            <label for="auditor">审核员</label>
                             <input type="radio" name="rolename" value="管理员" id="admin">
                             <label for="admin">管理员</label>
                           </div>

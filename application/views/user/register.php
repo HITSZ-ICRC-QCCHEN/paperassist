@@ -81,147 +81,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="space-6"></div>
 
                     <div class="position-relative">
-                        <div id="login-box" class="login-box visible widget-box no-border">
-                            <div class="widget-body">
-                                <div class="widget-main">
-                                    <h4 class="header blue lighter bigger">
-                                        <i class="icon-coffee green"></i>
-                                        请输入您的用户名和密码：
-                                    </h4>
 
-                                    <div class="space-6"></div>
-
-                                    <?php
-                                    echo validation_errors();
-                                    echo form_open('login/checkLogin');?>
-                                    <!--                                    <form name="fLogin" action=" " method="post">-->
-                                    <fieldset>
-                                        <label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="用户名/邮箱" name="txtUsername" value="<?php echo $username?>"/>
-															<i class="icon-user"></i>
-														</span>
-                                        </label>
-
-                                        <label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码" name="txtPassword" value="<?php echo $password?>"/>
-															<i class="icon-lock"></i>
-														</span>
-                                        </label>
-
-                                        <div class="space-4"></div>
-
-
-                                        <!--choose the user-->
-                                        <div class="social-or-login center">
-                                            <span class="bigger-110"></span>
-                                        </div>
-
-                                        <div class="space"></div>
-
-                                        <div class="clearfix">
-                                            <label class="inline">
-                                                <input type="checkbox" class="ace" name="chkRemember" value="Remember"/>
-                                                <span class="lbl"> 记住密码</span>
-                                            </label>
-
-
-                                            <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" value="Login" name="btnLogin" onclick="return checkUserInfo();">
-                                                <i class="icon-key"></i>
-                                                登录
-                                            </button>
-                                        </div>
-
-                                        <div class="space-4"></div>
-                                    </fieldset>
-                                    <!--                                    </form>-->
-                                    <?php echo form_close();?>
-
-                                    <!--<div class="social-or-login center">
-                                        <span class="bigger-110">Or Login Using</span>
-                                    </div>
-
-                                    <div class="social-login center">
-                                        <a class="btn btn-primary">
-                                            <i class="icon-facebook"></i>
-                                        </a>
-
-                                        <a class="btn btn-info">
-                                            <i class="icon-twitter"></i>
-                                        </a>
-
-                                        <a class="btn btn-danger">
-                                            <i class="icon-google-plus"></i>
-                                        </a>
-                                    </div>-->
-                                </div><!-- /widget-main -->
-
-                                <div class="toolbar clearfix">
-                                    <div>
-                                        <a href="#" onclick="show_box('forgot-box'); return false;" class="forgot-password-link">
-                                            <i class="icon-arrow-left"></i>
-                                            忘记密码
-                                        </a>
-                                    </div>
-
-                                    <div>
-                                        <a href="<?=site_url("register")?>" class="user-signup-link">
-                                            新用户注册
-                                            <i class="icon-arrow-right"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div><!-- /widget-body -->
-                        </div><!-- /login-box -->
-
-                        <div id="forgot-box" class="forgot-box widget-box no-border">
-                            <div class="widget-body">
-                                <div class="widget-main">
-                                    <h4 class="header red lighter bigger">
-                                        <i class="icon-key"></i>
-                                        忘记密码
-                                    </h4>
-
-                                    <div class="space-6"></div>
-                                    <p>
-                                        请输入您的邮箱地址：
-                                    </p>
-
-                                    <?php echo validation_errors();?>
-                                    <?php echo form_open('login/sendMail');?>
-                                    <!--<form>-->
-                                    <fieldset>
-                                        <label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input id="email" name="email" type="email" class="form-control" placeholder="邮箱" />
-															<i class="icon-envelope"></i>
-														</span>
-                                        </label>
-                                        <span id="chkmsg" style="color: red;"></span>
-
-                                        <div class="clearfix">
-                                            <button type="submit" class="width-35 pull-right btn btn-sm btn-danger" name="btnSend" id="btnSend">
-                                                <!--<button type="button" class="width-35 pull-right btn btn-sm btn-danger" name="btnSend">-->
-                                                <i class="icon-lightbulb"></i>
-                                                发送!
-                                            </button>
-                                        </div>
-                                    </fieldset>
-                                    <!--</form>-->
-                                    <?php echo form_close();?>
-                                </div><!-- /widget-main -->
-
-                                <div class="toolbar center">
-                                    <a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
-                                        返回至登录页
-                                        <i class="icon-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div><!-- /widget-body -->
-                        </div><!-- /forgot-box -->
-
-                        <div id="signup-box" class="signup-box widget-box no-border">
+                        <div id="signup-box" class="signup-box widget-box no-border visible">
                             <div class="widget-body">
                                 <div class="widget-main">
                                     <h4 class="header green lighter bigger">
@@ -233,7 +94,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <p> 请输入您的注册信息： </p>
 
                                     <?php echo validation_errors(); ?>
-                                    <?php echo form_open('login/Register'); ?>
+                                    <?php echo form_open('register/checkRegister'); ?>
                                     <!--<form id="fRegister" name="fRegister" action="" method="post">-->
                                     <fieldset>
                                         <label class="block clearfix">
@@ -296,7 +157,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
 
                                 <div class="toolbar center">
-                                    <a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
+                                    <a href="<?php echo site_url("/login")?>" class="back-to-login-link">
                                         <i class="icon-arrow-left"></i>
                                         返回至登录页
                                     </a>
@@ -311,16 +172,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div><!-- /.main-container -->
 
 
-
 <!-- inline scripts related to this page -->
-
-<script type="text/javascript">
-    function show_box(id) {
-        jQuery('.widget-box.visible').removeClass('visible');
-        jQuery('#'+id).addClass('visible');
-    }
-</script>
-
 <script type="text/javascript">
     function checkUserInfo(){
         if(fLogin.txtUsername.value==""){
@@ -335,8 +187,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
     }
 </script>
-
-
 
 <script type="text/javascript">
     function isAgree(){

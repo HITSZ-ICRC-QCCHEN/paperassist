@@ -330,14 +330,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="navbar-header pull-right" role="navigation">
                 <ul class="nav ace-nav">
                     <li class="grey">
-                        <a href="<?php echo site_url("Login/login")?>">
+                        <a href="<?php echo site_url("login")?>">
                             <i class="glyphicon glyphicon-user"></i>
                             <span>登录</span>
                         </a>
                     </li>
 
                     <li class="green">
-                        <a href="<?php echo site_url("Login/login")?>">
+                        <a href="<?php echo site_url("register")?>">
                             <i class="glyphicon glyphicon-pencil"></i>
                             <span>注册</span>
                         </a>
